@@ -1,0 +1,146 @@
+@host = http://127.0.0.1:8000/
+@username = new_user
+@email = new@user.com
+@pw = change_me123
+@token = e1bdaae10ab37637970c2de6906fffd93ec38f79
+
+######################################################## USERS ########################################################
+### register
+POST {{host}}auth/users/
+Content-Type: application/json
+
+{
+    "username": "{{username}}",
+    "email": "{{email}}",
+    "password": "{{pw}}",
+    "re_password": "{{pw}}"
+}
+
+### login
+POST {{host}}auth/token/login/
+Content-Type: application/json
+
+{
+    "username": "{{username}}",
+    "password": "{{pw}}"
+}
+
+### logout
+POST {{host}}auth/token/logout
+Content-Type: application/json
+Authorization: token {{token}}
+
+####################################################### PRODUCTS #######################################################
+### list of products
+GET {{host}}api/v1/products/
+Content-Type: application/json
+Authorization: token {{token}}
+
+### post a new product
+POST {{host}}api/v1/products/
+Content-Type: application/json
+Authorization: token {{token}}
+
+{
+    "name": "Test",
+    "price": 120000,
+    "stock": 20
+}
+
+### list of products
+GET {{host}}api/v1/products/4d6109ae-d0af-40e5-a486-ee79cdc75fd8/
+Content-Type: application/json
+Authorization: token {{token}}
+
+### delete a product
+DELETE {{host}}api/v1/products/4d6109ae-d0af-40e5-a486-ee79cdc75fd8/
+Content-Type: application/json
+Authorization: token {{token}}
+
+### modify a product
+PUT {{host}}api/v1/products/4d6109ae-d0af-40e5-a486-ee79cdc75fd8/
+Content-Type: application/json
+Authorization: token {{token}}
+
+{
+    "name": "Test1",
+    "price": 70000,
+    "stock": 10
+}
+
+### partially modify a product
+PATCH {{host}}api/v1/products/4d6109ae-d0af-40e5-a486-ee79cdc75fd8/
+Content-Type: application/json
+Authorization: token {{token}}
+
+{
+    "stock": 20
+}
+
+######################################################## ORDERS ########################################################
+### list orders
+GET {{host}}api/v1/orders/
+Content-Type: application/json
+Authorization: token {{token}}
+
+### create order
+POST {{host}}api/v1/orders/
+Content-Type: application/json
+Authorization: token {{token}}
+
+### retrieve order
+GET {{host}}api/v1/orders/3/
+Content-Type: application/json
+Authorization: token {{token}}
+
+### delete order
+DELETE {{host}}api/v1/orders/1/
+Content-Type: application/json
+Authorization: token {{token}}
+
+###################################################### ORDER DETAIL ######################################################
+### list order_detail
+GET {{host}}api/v1/order_detail/
+Content-Type: application/json
+Authorization: token {{token}}
+
+### create order_detail
+POST {{host}}api/v1/order_detail/
+Content-Type: application/json
+Authorization: token {{token}}
+
+{
+    "order": 3,
+    "quantity": 10,
+    "product": "876d86bd-1854-43be-91b1-e91e3fa892d4"
+}
+
+### get order_detail
+GET {{host}}api/v1/order_detail/2/
+Content-Type: application/json
+Authorization: token {{token}}
+
+### delete order_detail
+DELETE {{host}}api/v1/order_detail/1/
+Content-Type: application/json
+Authorization: token {{token}}
+
+### update order_detail
+PUT {{host}}api/v1/order_detail/3/
+Content-Type: application/json
+Authorization: token {{token}}
+
+{
+    "order": 3,
+    "quantity": 3,
+    "product": "b7d69f0c-9d0e-46f0-ba12-914b799a4626"
+}
+
+### partial update order_detail
+PATCH {{host}}api/v1/order_detail/2/
+Content-Type: application/json
+Authorization: token {{token}}
+
+{
+    "quantity": 1
+}
